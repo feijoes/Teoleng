@@ -25,6 +25,8 @@ if __name__ == '__main__':
 	for archPrograma in sorted(glob.glob('programas'+os.sep+'*.py')):
 		numPrograma = archPrograma[len(archPrograma) - 4]
 		np = int (numPrograma)
+		if np != 5:
+			continue
 		if (np<=3):
 			for archEntrada in sorted(glob.glob('entradas'+os.sep+'*.pdf')):
 				total += 1

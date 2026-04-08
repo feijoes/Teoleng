@@ -1,14 +1,16 @@
 # -*- coding: utf-8 -*-
 import re
 import sys
-
+from programa4 import programa4
+from programa2 import programa2
+from programa1 import programa1
 def programa5(RutaPdf,RutaXML):
-    resultado = False
     
-    '''
-    SU CÓDIGO
-    '''
+    texto_xml = programa4(RutaXML)
+    fecha, monto = programa2(RutaPdf)
     
+    regex = rf"<BanTeng:Movimiento .*?Importe=\"{monto}\" Fecha=\"{fecha}"
+    resultado = re.search(regex, texto_xml)
     if resultado:
         return(True)
     else:

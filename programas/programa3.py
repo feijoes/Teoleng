@@ -18,7 +18,10 @@ def programa3(RutaFactura):
 
     info = re.findall(r'(?:^|\n)\s*(\d+)\s+(.+?)\s+(\d+,\d{2})\s+(\d+,\d{2})', texto)
 
-    res += ''.join(f"Cant: {cant} |Desc: {desc} | {precio} c/u |Total:  {total} \n" for cant, desc, precio, total in info)
+    res += ''.join(
+        f"Cant: {cant} |Desc: {desc} | {precio} c/u |Total:  {total}\n"
+        for cant, desc, precio, total in info
+    )
     
     
     return res
@@ -29,6 +32,7 @@ if __name__ == '__main__':
  
     ret = programa3(entrada)      # ejecutar 
     
-    f = open(salida, 'w')  # abrir archivo salida
+    # Los archivos esperados están en una codificación tipo Windows-1252 (no UTF-8).
+    f = open(salida, 'w', encoding='cp1252', newline='\n')  # abrir archivo salida
     f.write(ret)           # escribir archivo salida
     f.close()              # cerrar archivo salida

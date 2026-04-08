@@ -3,10 +3,8 @@ import re
 import sys
 
 def programa4(RutaXML):
-    '''
-    SU CÓDIGO
-    '''
-    text = ""
+    with open(RutaXML, 'r', encoding='cp1252', errors='replace') as file:
+        text = file.read()
     return text
   
 
