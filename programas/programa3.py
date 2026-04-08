@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import sys
+from programa1 import programa1
 
 def programa3(RutaFactura):
     
@@ -10,7 +11,14 @@ def programa3(RutaFactura):
     
     '''
     
-    res=f"Cant: 10 |Desc: PRUEBA | 10,10 c/u |Total: 101\n"
+    #res=f"Cant: 10 |Desc: PRUEBA | 10,10 c/u |Total: 101\n"
+    texto = programa1(RutaFactura)
+    res = ""
+    #bloque = re.search(r'CANT\..+?SUBTOTAL', texto, re.DOTALL).group()
+
+    info = re.findall(r'(?:^|\n)\s*(\d+)\s+(.+?)\s+(\d+,\d{2})\s+(\d+,\d{2})', texto)
+
+    res += ''.join(f"Cant: {cant} |Desc: {desc} | {precio} c/u |Total:  {total} \n" for cant, desc, precio, total in info)
     
     
     return res
