@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import re
+import re ###TODO: no se usa
 import sys
 
 def programa4(RutaXML):

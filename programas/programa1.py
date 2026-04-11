@@ -1,14 +1,14 @@
 # -*- coding: utf-8 -*-
-import re
+import re ###TODO: no se usa
 import sys
 from pypdf import PdfReader
 
 def programa1(RutaPdf):
     reader = PdfReader(RutaPdf)
-    number_of_pages = len(reader.pages)
+    number_of_pages = len(reader.pages)  ###TODO: no se usa
     text = ""
     for page in reader.pages:
-        text += page.extract_text()
+        text += page.extract_text()  ###TODO: que pasa si el texto es None, se rompe?
     return text
 
 

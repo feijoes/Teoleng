@@ -9,7 +9,7 @@ def programa5(RutaPdf,RutaXML):
     texto_xml = programa4(RutaXML)
     fecha, monto = programa2(RutaPdf)
     
-    regex = rf"<BanTeng:Movimiento .*?Importe=\"{monto}\" Fecha=\"{fecha}"
+    regex = rf"<BanTeng:Movimiento .*?Importe=\"{monto}\" Fecha=\"{fecha}" ###TODO: que pasa con el caso fecha-importe
     resultado = re.search(regex, texto_xml)
     if resultado:
         return(True)

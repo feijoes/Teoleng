@@ -6,26 +6,36 @@ from programa5 import programa5
 from programa2 import programa2
 
 def programa6(RutaPdf,RutaXML):
-    text = ""
-    '''
-    SU CÓDIGO
-    '''
     xml = programa4(RutaXML)
 
-    if not programa5(RutaPdf,RutaXML):
+    if not programa5(RutaPdf, RutaXML):
         return xml
+
     fecha, monto = programa2(RutaPdf)
 
-    #Nos interesa encontrar algo del tipo: Movimiento ... Importe ... Fecha ...
-    movimientos = re.findall(r'<[^>]*Movimiento[^>]*/>', xml)
+    patron_mov = (
+        r'\n?[ \t]*<[^>]*Movimiento[^>]*Importe\s*=\s*"'
+        + re.escape(monto)
+        + r'"\s*Fecha\s*=\s*"'
+        + re.escape(fecha)
+        + r'"[^>]*/>[ \t]*'
+    )
 
-    #mov es el movimiento que buscamos
-    mov = re.search(r'<[^>]*Movimiento[^>]*Importe\s*=\s*"' + monto + r'"\s*Fecha\s*=\s*"' + fecha + r'"[^>]*/>', xml)
+    xml = re.sub(patron_mov, '', xml, count=1)
 
+    total_match = re.search(
+        r'<BanTeng:TotalMovimientos>(\d+)</BanTeng:TotalMovimientos>',
+        xml
+    )
+    total_actual = int(total_match.group(1))
+    nuevo_total = total_actual - 1   ###TODO: revisar esto si resta bien, porque puede pasar que entre, no borra pero si resta
 
-    xml = xml.replace(mov.group(0), '')
-    
-
+    xml = re.sub(
+        r'<BanTeng:TotalMovimientos>\d+</BanTeng:TotalMovimientos>',
+        f'<BanTeng:TotalMovimientos>{nuevo_total}</BanTeng:TotalMovimientos>',
+        xml,
+        count=1
+    )
 
     return xml
 if __name__ == '__main__':

@@ -12,9 +12,9 @@ def programa2(RutaFactura):
     '''
     texto = programa1(RutaFactura)
     
-    fecha_string = re.search(r"FECHA:\s*\n*(\d{2}[-/]\d{2}[-/]\d{4})", texto).group(1)
+    fecha_string = re.search(r"FECHA:\s*\n*(\d{2}[-/]\d{2}[-/]\d{4})", texto).group(1)###TODO: creo que si es None el group explota
     fecha = datetime.strptime(fecha_string.replace("/", "-"), "%d-%m-%Y").strftime("%Y-%m-%d")    
-    monto = re.search(r"\n*\s*BANCARIO\s*(\d*,\d*)",texto).group(1)
+    monto = re.search(r"\n*\s*BANCARIO\s*(\d*,\d*)",texto).group(1) ###TODO: esto permite ,45 o 123,
     return fecha, monto
   
 
