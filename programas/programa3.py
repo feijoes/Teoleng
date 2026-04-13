@@ -22,8 +22,6 @@ def programa3(RutaFactura):
         f"Cant: {cant} |Desc: {desc} | {precio} c/u |Total:  {total}\n"
         for cant, desc, precio, total in info
     )
-    
-    
     return res
 
 if __name__ == '__main__':
@@ -32,7 +30,6 @@ if __name__ == '__main__':
  
     ret = programa3(entrada)      # ejecutar 
     
-    # Los archivos esperados están en una codificación tipo Windows-1252 (no UTF-8).
-    f = open(salida, 'w', encoding='cp1252', newline='\n')  # abrir archivo salida
+    f = open(salida, 'w', encoding='utf-8') # abrir archivo salida
     f.write(ret)           # escribir archivo salida
     f.close()              # cerrar archivo salida

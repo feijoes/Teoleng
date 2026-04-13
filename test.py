@@ -3,6 +3,7 @@ import re
 import sys
 import os
 import glob
+import subprocess
 
 
 
@@ -25,8 +26,6 @@ if __name__ == '__main__':
 	for archPrograma in sorted(glob.glob('programas'+os.sep+'*.py')):
 		numPrograma = archPrograma[len(archPrograma) - 4]
 		np = int (numPrograma)
-		if np != 5:
-			continue
 		if (np<=3):
 			for archEntrada in sorted(glob.glob('entradas'+os.sep+'*.pdf')):
 				total += 1
@@ -45,17 +44,17 @@ if __name__ == '__main__':
 				# EJECUTAR EL PROGRAMA
 				print("\nPrograma: "+programa+".py")
 				print("Entrada: "+entrada+".pdf\n")
-				ejecutar = '{0} {1} {2} {3}'.format(sys.executable, archPrograma, archEntrada, archSalida)
-				print(ejecutar)
-				x = os.system(ejecutar)
+				cmd = [sys.executable, archPrograma, archEntrada, archSalida]
+				print(" ".join(cmd))
+				x = subprocess.run(cmd).returncode
 				if x != 0:
 					print("ERROR: al ejecutar "+programa+" para la entrada "+entrada)
 					errores += 1
 				else:
 					# COMPARAR LAS SALIDAS
-					diferencias = "diff --strip-trailing-cr " + archSalida + " " + archSalidaOficial 
-					print(diferencias+"\n")
-					x = os.system(diferencias)		
+					diferencias_cmd = ["diff", "--strip-trailing-cr", archSalida, archSalidaOficial]
+					print(" ".join(diferencias_cmd)+"\n")
+					x = subprocess.run(diferencias_cmd).returncode
 					if x != 0:
 						print("RESULTADO: ERROR (la salida no es la esperada).")
 						errores += 1
@@ -76,17 +75,17 @@ if __name__ == '__main__':
 				# EJECUTAR EL PROGRAMA
 				print("\nPrograma: "+programa+".py")
 				print("Entrada: "+entrada+".xml\n")
-				ejecutar = '{0} {1} {2} {3}'.format(sys.executable, archPrograma, archEntrada, archSalida)
-				print(ejecutar)
-				x = os.system(ejecutar)
+				cmd = [sys.executable, archPrograma, archEntrada, archSalida]
+				print(" ".join(cmd))
+				x = subprocess.run(cmd).returncode
 				if x != 0:
 					print("ERROR: al ejecutar "+programa+" para la entrada "+entrada)
 					errores += 1
 				else:
 					# COMPARAR LAS SALIDAS
-					diferencias = "diff --strip-trailing-cr " + archSalida + " " + archSalidaOficial 
-					print(diferencias+"\n")
-					x = os.system(diferencias)		
+					diferencias_cmd = ["diff", "--strip-trailing-cr", archSalida, archSalidaOficial]
+					print(" ".join(diferencias_cmd)+"\n")
+					x = subprocess.run(diferencias_cmd).returncode
 					if x != 0:
 						print("RESULTADO: ERROR (la salida no es la esperada).")
 						errores += 1
@@ -109,17 +108,17 @@ if __name__ == '__main__':
 				# EJECUTAR EL PROGRAMA
 				print("\nPrograma: "+programa+".py")
 				print("Entradas: "+entrada+".pdf || "+ estado_bancario+"\n")
-				ejecutar = '{0} {1} {2} {3} {4}'.format(sys.executable, archPrograma, archEntrada,estado_bancario, archSalida)
-				print(ejecutar)
-				x = os.system(ejecutar)
+				cmd = [sys.executable, archPrograma, archEntrada, estado_bancario, archSalida]
+				print(" ".join(cmd))
+				x = subprocess.run(cmd).returncode
 				if x != 0:
 					print("ERROR: al ejecutar "+programa+" para la entrada "+entrada)
 					errores += 1
 				else:
 					# COMPARAR LAS SALIDAS
-					diferencias = "diff --strip-trailing-cr " + archSalida + " " + archSalidaOficial 
-					print(diferencias+"\n")
-					x = os.system(diferencias)		
+					diferencias_cmd = ["diff", "--strip-trailing-cr", archSalida, archSalidaOficial]
+					print(" ".join(diferencias_cmd)+"\n")
+					x = subprocess.run(diferencias_cmd).returncode
 					if x != 0:
 						print("RESULTADO: ERROR (la salida no es la esperada).")
 						errores += 1

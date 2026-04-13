@@ -16,7 +16,6 @@ def programa2(RutaFactura):
     fecha = datetime.strptime(fecha_string.replace("/", "-"), "%d-%m-%Y").strftime("%Y-%m-%d")    
     monto = re.search(r"\n*\s*BANCARIO\s*(\d*,\d*)",texto).group(1) ###TODO: esto permite ,45 o 123,
     return fecha, monto
-  
 
 if __name__ == '__main__':
     entrada = sys.argv[1]  # archivo entrada (param)
@@ -24,6 +23,6 @@ if __name__ == '__main__':
     
     fecha,monto = programa2(entrada)      # ejecutar 
     ret =f"Fecha: {fecha} | Monto: {monto}"
-    f = open(salida, 'w')  # abrir archivo salida
+    f = open(salida, 'w', encoding='utf-8') # abrir archivo salida
     f.write(ret)           # escribir archivo salida
     f.close()              # cerrar archivo salida

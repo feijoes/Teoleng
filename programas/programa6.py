@@ -38,6 +38,7 @@ def programa6(RutaPdf,RutaXML):
     )
 
     return xml
+
 if __name__ == '__main__':
     entrada_pdf = sys.argv[1]  # archivo entrada (param)
     entrada_xml = sys.argv[2]  # archivo entrada (param)
@@ -45,6 +46,6 @@ if __name__ == '__main__':
  
     ret = programa6(entrada_pdf,entrada_xml)      # ejecutar 
     
-    f = open(salida, 'w')  # abrir archivo salida
+    f = open(salida, 'w', encoding='utf-8') # abrir archivo salida
     f.write(ret)           # escribir archivo salida
     f.close()              # cerrar archivo salida

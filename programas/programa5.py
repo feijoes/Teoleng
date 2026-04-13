@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import re
 import sys
+
 from programa4 import programa4
 from programa2 import programa2
 from programa1 import programa1
@@ -27,6 +28,6 @@ if __name__ == '__main__':
     else:
         ret = "No encontrado"
     
-    f = open(salida, 'w')  # abrir archivo salida
+    f = open(salida, 'w', encoding='utf-8') # abrir archivo salida
     f.write(ret)           # escribir archivo salida
     f.close()              # cerrar archivo salida
