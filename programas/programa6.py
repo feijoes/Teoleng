@@ -5,6 +5,9 @@ from programa4 import programa4
 from programa5 import programa5
 from programa2 import programa2
 
+#Dada una factura y el estado bancario xml, el programa elimina la línea coincidente. En caso de que no exista coincidencia, no se realiza ninguna modificación.
+
+
 def programa6(RutaPdf,RutaXML):
     xml = programa4(RutaXML)
 
@@ -14,21 +17,24 @@ def programa6(RutaPdf,RutaXML):
     fecha, monto = programa2(RutaPdf)
 
     patron_mov = (
-        r'\n?[ \t]*<[^>]*Movimiento[^>]*Importe\s*=\s*"'
-        + re.escape(monto)
-        + r'"\s*Fecha\s*=\s*"'
-        + re.escape(fecha)
-        + r'"[^>]*/>[ \t]*'
+    rf'\n?[ \t]*<[^>]*Movimiento[^>]*Importe\s*=\s*"{re.escape(monto)}"\s*'
+    rf'Fecha\s*=\s*"{re.escape(fecha)}"[^>]*/>[ \t]*'
     )
 
-    xml = re.sub(patron_mov, '', xml, count=1)
+    #\n? → puede haber un salto de línea antes del tag, [ \t]* → puede haber espacios o tabs antes del tag, [ \t]* → espacios o tabs después del tag
+    # Se usa re.escape para que monto y fecha no alteren la regex.
+
+    xml = re.sub(patron_mov, '', xml, count=1) 
+    #re.sub: Retorna la string resultado de reemplazar las ocurrencias del patrón por repl– Si 
+    #count es distinto de 0, reemplaza un máximo de count ocurrencias Busca una ocurrencia del patrón en la string
+    #Retorna el match, o None si el patrón no ocurre en la string
 
     total_match = re.search(
         r'<BanTeng:TotalMovimientos>(\d+)</BanTeng:TotalMovimientos>',
         xml
     )
     total_actual = int(total_match.group(1))
-    nuevo_total = total_actual - 1   ###TODO: revisar esto si resta bien, porque puede pasar que entre, no borra pero si resta
+    nuevo_total = total_actual - 1
 
     xml = re.sub(
         r'<BanTeng:TotalMovimientos>\d+</BanTeng:TotalMovimientos>',

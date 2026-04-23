@@ -3,6 +3,7 @@ import re
 import sys
 from programa1 import programa1
 from datetime import datetime
+#Dada una factura, despliega la fecha y el “débito bancario” con el siguiente formato: Fecha: 2026-03-16 | Monto: 954,25
 def programa2(RutaFactura):
     
     '''
@@ -12,9 +13,11 @@ def programa2(RutaFactura):
     '''
     texto = programa1(RutaFactura)
     
-    fecha_string = re.search(r"FECHA:\s*\n*(\d{2}[-/]\d{2}[-/]\d{4})", texto).group(1)###TODO: creo que si es None el group explota
-    fecha = datetime.strptime(fecha_string.replace("/", "-"), "%d-%m-%Y").strftime("%Y-%m-%d")    
-    monto = re.search(r"\n*\s*BANCARIO\s*(\d*,\d*)",texto).group(1) ###TODO: esto permite ,45 o 123,
+    #r: Le dice a Python: “no interpretes las barras invertidas \ como escapes normales, sino como un caracter mas
+
+    fecha_string = re.search(r"FECHA:\s*\n*(\d{2}[-/]\d{2}[-/]\d{4})", texto).group(1) # Busca la palabra FECHA y a continuacion dd-dd-dddd, \s*: es para los espacios,\n*: es para los saltos de linea, \d: solo digitos, .group(1): devuelve el primer elemento del patron, osea el primer parentesis.
+    fecha = datetime.strptime(fecha_string.replace("/", "-"), "%d-%m-%Y").strftime("%Y-%m-%d")#strptime: string-> date, strftime: cambia el formato    
+    monto = re.search(r"\n*\s*BANCARIO\s*(\d+,\d+)",texto).group(1) # Busca la palabra BANCARIO y se queda con el monto, *: 0 o mas ocurrencias, +: 1 o mas ocurrencias
     return fecha, monto
 
 if __name__ == '__main__':

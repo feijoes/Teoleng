@@ -3,6 +3,10 @@ import re
 import sys
 from programa1 import programa1
 
+#Despliega todas las cantidades, la descripción, precio por unidad y precio total de los ítems facturados con el siguiente formato:
+#Cant: 1 |Desc: Item1 | 200,11 c/u |Total: 200,11
+#Cant: 1 |Desc: Item 2 | 0,70 c/u |Total: 0,70
+
 def programa3(RutaFactura):
     
     '''
@@ -10,13 +14,14 @@ def programa3(RutaFactura):
     
     
     '''
-    
-    #res=f"Cant: 10 |Desc: PRUEBA | 10,10 c/u |Total: 101\n"
     texto = programa1(RutaFactura)
     res = ""
-    #bloque = re.search(r'CANT\..+?SUBTOTAL', texto, re.DOTALL).group()
 
     info = re.findall(r'(?:^|\n)\s*(\d+)\s+(.+?)\s+(\d+,\d{2})\s+(\d+,\d{2})', texto)
+    # (?:^|\n)         -> inicio del texto o inicio de una nueva línea
+    # (.+?)            -> descripción, en forma no codiciosa, se queda con lo minimo necesario
+
+    # re.findall devuelve una lista de tuplas: [(cant, desc, precio, total), (...), ...]
 
     res += ''.join(
         f"Cant: {cant} |Desc: {desc} | {precio} c/u |Total:  {total}\n"

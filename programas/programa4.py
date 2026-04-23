@@ -2,9 +2,10 @@
 import re
 import sys
 
+#Este programa se encarga de leer el archivo xml e imprimir su contenido como texto plano (string).
 
 def programa4(RutaXML):
-    with open(RutaXML, 'r', encoding='cp1252', errors='replace') as file:
+    with open(RutaXML, 'r', encoding='utf-8', errors='replace') as file:
         text = file.read()
     return text
 

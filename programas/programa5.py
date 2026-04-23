@@ -5,12 +5,17 @@ import sys
 from programa4 import programa4
 from programa2 import programa2
 from programa1 import programa1
+
+#Dada una factura y el estado bancario, este programa devuelve True si hay un movimiento coincidente (misma fecha e importe que la factura), o False en otro caso.
+#Sugerencia: Usar el programa2 para obtener la fecha y el “débito bancario” que se deberá buscar en el XML.
 def programa5(RutaPdf,RutaXML):
     
     texto_xml = programa4(RutaXML)
     fecha, monto = programa2(RutaPdf)
     
-    regex = rf"<BanTeng:Movimiento .*?Importe=\"{monto}\" Fecha=\"{fecha}" ###TODO: que pasa con el caso fecha-importe
+    #rf: Sirve para interpolar variables dentro del texto
+
+    regex = rf"<BanTeng:Movimiento .*?Importe=\"{monto}\" Fecha=\"{fecha}" #.*?: ignora todo lo que hay entre medio de "Movimiento" e "Importe"
     resultado = re.search(regex, texto_xml)
     if resultado:
         return(True)
